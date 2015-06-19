@@ -9,4 +9,4 @@
 
 
 
-CSS animations are from [http://tobiasahlin.com/spinkit/]
+CSS animations thanks to [http://tobiasahlin.com/spinkit/]

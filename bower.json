@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": [
     "js/loader.js",
-    "css/loaders.scss"
+    "css/loader.scss"
     ],
   "description": "CSS animated loader directive",
   "keywords": [],
@@ -12,6 +12,7 @@
     "**/.*",
     "node_modules",
     "bower_components",
+    "index.html",
     "test",
     "tests"
   ],

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>AngularJS Loader Directive</title>
+    <meta name="description" content="Pre loader for angular">
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link href="dist/styles/loader.css" rel="stylesheet">
+    <style>
+        body {
+            color: #f6f6f6;
+            background: #d1d1d1;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        header {
+            width: 200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-bottom: 150px;
+            
+        }
+    </style>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="dist/angular.loader.min.js"></script>
+    <script>
+
+        angular.module('evtrs.loader').run(function ($rootScope, $timeout) {
+            var throttle = function () {
+                $rootScope.$broadcast('HTTP_START');
+
+                $timeout(function () {
+                    return $rootScope.$broadcast('HTTP_STOP');
+                }, 5000);
+
+            };
+            throttle();
+        })
+    </script>
+</head>
+</head>
+<body ng-app='evtrs.loader'>
+
+<header>
+    <h2>Loader demo</h2>
+</header>
+
+<loader animation="box"></loader>
+
+</body>
+</html>

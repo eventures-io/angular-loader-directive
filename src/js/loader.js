@@ -4,10 +4,10 @@ angular.module('evtrs.loader', []).
         var pendingRequests = 0;
 
         var checkUrl = function (config) {
-            if (!ENV.REST_URL) {
-                ENV.REST_URL = 'api';
+            if (!ENV.API_ENDPOINT) {
+                ENV.API_ENDPOINT = 'api';
             }
-            return config.url.indexOf(ENV.REST_URL) != -1 ? true : false;
+            return config.url.indexOf(ENV.API_ENDPOINT) != -1 ? true : false;
         }
 
         return {
@@ -55,17 +55,17 @@ angular.module('evtrs.loader', []).
 
             },
             link: function (scope, element, attrs) {
-                var spinner = $document.createElement('div');
+                var spinner = document.createElement('div');
                 switch (attrs.animation) {
-                    case  box:
+                    case  'box':
                         spinner.setAttribute('class', 'loader-box');
                         break;
-                    case bounce:
+                    case 'bounce':
                         spinner.setAttribute('class', 'loader-bounce');
-                        var bounce1 = $document.createElement('div');
+                        var bounce1 = document.createElement('div');
                         bounce1.setAttribute('class', 'loader-bounce1');
                         spinner.append(bounce1);
-                        var bounce2 = $document.createElement('div');
+                        var bounce2 = document.createElement('div');
                         bounce2.setAttribute('class', 'loader-bounce2');
                         spinner.append(bounce2);
                         break;
@@ -89,6 +89,4 @@ angular.module('evtrs.loader', []).
             }
 
         }
-
-
-    })
+    });
