@@ -10,6 +10,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-karma');
 
     /**
@@ -32,7 +33,7 @@ module.exports = function (grunt) {
             sass: {
                 dist: {
                     files: {
-                       'dist/styles/loader.css' : 'src/css/loader.scss'
+                       'dist/styles/loader.css' : 'src/scss/loader.scss'
                     }
 
                 }
@@ -82,7 +83,13 @@ module.exports = function (grunt) {
                 build: {
                     files: {},
                     src: 'src/js/*.js',
-                    dest: 'dist/angular.loader.min.js'
+                    dest: 'dist/angular-loader.min.js'
+                }
+            },
+            copy: {
+                main: {
+                    src: 'src/js/loader.js',
+                    dest: 'dist/angular-loader.js'
                 }
             },
             karma: {
@@ -98,7 +105,7 @@ module.exports = function (grunt) {
          @toc 6.
          */
             // Default task(s).
-        grunt.registerTask('default', ['jshint:beforeconcatQ', 'sass', 'uglify:build']);
+        grunt.registerTask('default', ['jshint:beforeconcatQ', 'sass', 'uglify:build', 'copy']);
 
     }
 

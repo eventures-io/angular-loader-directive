@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>AngularJS Loader Directive</title>
+    <title>Loader Directive</title>
     <meta name="description" content="Pre loader for angular">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
     <link href="dist/styles/loader.css" rel="stylesheet">
@@ -19,11 +19,11 @@
             margin: 0 auto;
             text-align: center;
             padding-bottom: 150px;
-            
+
         }
     </style>
     <script src="bower_components/angular/angular.js"></script>
-    <script src="dist/angular.loader.min.js"></script>
+    <script src="dist/angular-loader.min.js"></script>
     <script>
 
         angular.module('evtrs.loader').run(function ($rootScope, $timeout) {
@@ -32,7 +32,7 @@
 
                 $timeout(function () {
                     return $rootScope.$broadcast('HTTP_STOP');
-                }, 5000);
+                }, 10000);
 
             };
             throttle();

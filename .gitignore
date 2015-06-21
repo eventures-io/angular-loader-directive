@@ -1,18 +1,4 @@
-*.seed
-*.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
-*.swp
-.idea/*
-*.DS_Store
-lib-cov
-pids
-logs
-results
-
+.idea/
 node_modules
 bower_components
 

@@ -1,6 +1,6 @@
-$loader-width: 3em;
-$loader-height: 3em;
-$loader-bg: #333;
+$loader-width: 6em;
+$loader-height: 6em;
+$loader-bg: #cf8731;
 
 .loader {
     width: $loader-width;
@@ -10,7 +10,7 @@ $loader-bg: #333;
 }
 
 @import "box.scss";
-//@import "bounce.scss";
+@import "bounce.scss";
 
 
 

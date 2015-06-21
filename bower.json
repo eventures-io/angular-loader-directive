@@ -2,9 +2,8 @@
   "name": "evtrs-loader-directive",
   "version": "0.1.0",
   "main": [
-    "js/loader.js",
-    "css/loader.scss"
-    ],
+    "dist/angular-loader.js"
+  ],
   "description": "CSS animated loader directive",
   "keywords": [],
   "license": "MIT",
