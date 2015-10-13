@@ -38,12 +38,12 @@ angular.module('evtrs.loader', []).
     })
     .directive('loader', function () {
         return {
-            restrict: 'E',
+            restrict: 'A',
             scope: {
 
             },
             link: function (scope, element, attrs) {
-                switch (attrs.animation) {
+                switch (attrs.loader) {
                     case  'box':
                         element.append('<div class="loader-box"></div>');
                         break;

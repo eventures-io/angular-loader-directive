@@ -111,4 +111,6 @@ module.exports = function (grunt) {
 
     init({});		//initialize here for defaults (init may be called again later within a task)
 
+    //push github pages: git push -f origin master:gh-pages
+
 };

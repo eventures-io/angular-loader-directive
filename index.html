@@ -3,50 +3,178 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Loader Directive</title>
-    <meta name="description" content="Pre loader for angular">
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <title>Angular Loader Directive</title>
+    <meta name="description" content="loader directive for angular">
     <link href="dist/styles/loader.css" rel="stylesheet">
     <style>
         body {
-            color: #f6f6f6;
-            background: #d1d1d1;
-            font-family: 'Source Sans Pro', sans-serif;
+            color: #3d3d3d;
+            font-family: sans-serif;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
         }
 
         header {
-            width: 200px;
-            margin: 0 auto;
-            text-align: center;
-            padding-bottom: 150px;
-
+            width: 100%;
+            height: 30px;
+            text-align: right;
+            border-bottom: 1px solid #3d3d3d;
         }
+
+        header > span {
+            padding-right: 15px;
+        }
+
+        header a {
+            color: #3d3d3d;
+            text-decoration: none;
+            font-size: 16px;
+            vertical-align: text-top;
+        }
+
+        header svg {
+            padding-top: 5px;
+            width: 20px;
+            height: 20px;
+        }
+
+        h1 {
+            display: block;
+            width: 400px;
+            margin: 50px auto;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .message {
+            display: none;
+            background-color: #38cc70;
+            width: 200px;
+            margin: 120px auto;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 24px;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+        .message.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .control-buttons {
+            position: absolute;
+            bottom: 120px;
+            left: 0;
+            width: 100%;
+        }
+
+        .buttons-container {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .buttons-container > .btn-previous {
+            float: left;
+            cursor: pointer;
+            transform: rotate(180deg) scale(1.5);
+        }
+
+        .buttons-container > .btn-next {
+            float: right;
+            cursor: pointer;
+            transform: scale(1.5);
+        }
+
+
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
-    <script src="dist/angular-loader.min.js"></script>
-    <script>
+    <script src="src/js/loader.js"></script>
+    <script type="text/javascript">
 
-        angular.module('evtrs.loader').run(function ($rootScope, $timeout) {
-            var throttle = function () {
-                $rootScope.$broadcast('HTTP_START');
+        angular.module('loader.demo', ['evtrs.loader']).directive('loaderDemo', function ($rootScope, $timeout, $compile, $document) {
 
-                $timeout(function () {
-                    return $rootScope.$broadcast('HTTP_STOP');
-                }, 10000);
+            return {
+                restrict: 'A',
+                controller: function ($scope, $element) {
+                    var animations = ['box', 'bounce'];
+                    $scope.animation = animations[0];
 
+                    var insertLoader = function () {
+                        var loader = angular.element('<div loader="{{animation}}"></div>');
+                        $element.append(loader);
+                        $compile(loader)($scope);
+                    };
+
+                    insertLoader();
+
+                    var throttle = function () {
+                        $document[0].querySelector('.message').classList.remove('show');
+                        $rootScope.$broadcast('HTTP_START');
+
+                        $timeout(function () {
+                            $document[0].querySelector('.message').classList.add('show');
+                            return $rootScope.$broadcast('HTTP_STOP');
+
+                        }, 1000);
+
+                    };
+                    throttle();
+
+                    $scope.next = function () {
+                        $element.empty();
+                        var index = animations.indexOf($scope.animation);
+                        index = (index + 1) <= (animations.length - 1) ? ++index : 0;
+                        $scope.animation = animations[index];
+                        insertLoader();
+                        throttle();
+                    };
+
+                    $scope.previous = function () {
+                        $element.empty();
+                        var index = animations.indexOf($scope.animation);
+                        index = (index -1 < 0) ? animations.length - 1 : --index;
+                        $scope.animation = animations[index];
+                        insertLoader();
+                        throttle();
+                    };
+                }
             };
-            throttle();
-        })
+        });
+
+
     </script>
 </head>
-</head>
-<body ng-app='evtrs.loader'>
+<body ng-app='loader.demo'>
 
 <header>
-    <h2>Loader demo</h2>
+        <span>
+            <svg enable-background="new 0 0 512 512" height="512px" id="Layer_1" version="1.1" viewBox="0 0 512 512" width="512px"
+                 xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g><path clip-rule="evenodd" d="M296.133,354.174c49.885-5.891,102.942-24.029,102.942-110.192   c0-24.49-8.624-44.448-22.67-59.869c2.266-5.89,9.515-28.114-2.734-58.947c0,0-18.139-5.898-60.759,22.669   c-18.139-4.983-38.09-8.163-56.682-8.163c-19.053,0-39.011,3.18-56.697,8.163c-43.082-28.567-61.22-22.669-61.22-22.669   c-12.241,30.833-4.983,53.057-2.718,58.947c-14.061,15.42-22.677,35.379-22.677,59.869c0,86.163,53.057,104.301,102.942,110.192   c-6.344,5.452-12.241,15.873-14.507,30.387c-12.702,5.438-45.808,15.873-65.758-18.592c0,0-11.795-21.31-34.012-22.669   c0,0-22.224-0.453-1.813,13.592c0,0,14.96,6.812,24.943,32.653c0,0,13.6,43.089,76.179,29.48v38.543   c0,5.906-4.53,12.702-15.865,10.89C96.139,438.977,32.2,354.626,32.2,255.77c0-123.807,100.216-224.022,224.03-224.022   c123.347,0,224.023,100.216,223.57,224.022c0,98.856-63.946,182.754-152.828,212.688c-11.342,2.266-15.873-4.53-15.873-10.89   V395.45C311.1,374.577,304.288,360.985,296.133,354.174L296.133,354.174z M512,256.23C512,114.73,397.263,0,256.23,0   C114.73,0,0,114.73,0,256.23C0,397.263,114.73,512,256.23,512C397.263,512,512,397.263,512,256.23L512,256.23z" fill="#0D2636" fill-rule="evenodd"/>
+                </g>
+            </svg>
+            <a href="https://github.com/eventures-io/angular-loader-directive">View on github</a>
+        </span>
 </header>
+<h1>angular loader directive</h1>
 
-<loader animation="box"></loader>
 
+<div loader-demo></div>
+<span class="message">Finished loading</span>
+
+<div class="control-buttons">
+    <div class="buttons-container">
+        <span class="btn-previous" data-ng-click="previous()">
+            <svg height="16px" style="enable-background:new 0 0 16 16;" version="1.1" viewBox="0 0 16 16" width="16px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><path d="M1,14c0,0.547,0.461,1,1,1c0.336,0,0.672-0.227,1-0.375L14.258,9C14.531,8.867,15,8.594,15,8s-0.469-0.867-0.742-1L3,1.375  C2.672,1.227,2.336,1,2,1C1.461,1,1,1.453,1,2V14z"/></svg>
+        </span>
+        <span class="btn-next" data-ng-click="next()">
+            <svg height="16px" style="enable-background:new 0 0 16 16;" version="1.1" viewBox="0 0 16 16" width="16px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><path d="M1,14c0,0.547,0.461,1,1,1c0.336,0,0.672-0.227,1-0.375L14.258,9C14.531,8.867,15,8.594,15,8s-0.469-0.867-0.742-1L3,1.375  C2.672,1.227,2.336,1,2,1C1.461,1,1,1.453,1,2V14z"/></svg>
+        </span>
+    </div>
+</div>
 </body>
 </html>
