@@ -1,5 +1,5 @@
 {
-  "name": "evtrs-loader-directive",
+  "name": "angular-loader-directive",
   "version": "0.0.3",
   "main": [
     "dist/angular-loader.js"

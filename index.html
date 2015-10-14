@@ -9,6 +9,7 @@
     <style>
         body {
             color: #3d3d3d;
+            background-color: white;
             font-family: sans-serif;
             height: 100%;
             margin: 0;
@@ -121,12 +122,12 @@
                         response: function (response) {
                             return $timeout(function () {
                                 return response
-                            }, 3000);
+                            }, 5000);
                         },
                         responseError: function (response) {
                             return $timeout(function () {
                                 return response
-                            }, 3000);
+                            }, 5000);
                         }
                     };
                 })
