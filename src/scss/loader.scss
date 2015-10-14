@@ -9,8 +9,11 @@ $loader-bg: #7cfc00;
     margin: 100px auto;
 }
 
-@import "box.scss";
-@import "bounce.scss";
+@import "box";
+@import "bounce";
+@import "cube";
+@import "spinner";
+@import "fold";
 
 
 

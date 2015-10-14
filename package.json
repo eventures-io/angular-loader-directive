@@ -1,7 +1,7 @@
 {
   "author": "Peter Symoens",
   "name": "evtrs-loader-directive",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Angular loader directive",
   "devDependencies": {
     "grunt": "^0.4.5",

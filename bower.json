@@ -1,6 +1,6 @@
 {
   "name": "evtrs-loader-directive",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": [
     "dist/angular-loader.js"
   ],
@@ -12,6 +12,7 @@
     "node_modules",
     "bower_components",
     "index.html",
+    "demo",
     "test",
     "tests"
   ],

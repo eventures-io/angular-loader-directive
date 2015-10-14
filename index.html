@@ -27,7 +27,7 @@
             padding-right: 15px;
         }
 
-        header a {
+        a {
             color: #3d3d3d;
             text-decoration: none;
             font-size: 16px;
@@ -60,6 +60,7 @@
             opacity: 0;
             transition: opacity .3s;
         }
+
         .message.show {
             display: block;
             opacity: 1;
@@ -80,7 +81,7 @@
         .buttons-container > .btn-previous {
             float: left;
             cursor: pointer;
-            transform: rotate(180deg) scale(1.5);
+            transform: rotate(180deg) translateY(4px) scale(1.5);
         }
 
         .buttons-container > .btn-next {
@@ -89,61 +90,92 @@
             transform: scale(1.5);
         }
 
+        .download {
+            display: block;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            letter-spacing: 2px;
+            border: 1px solid #3d3d3d;
+            border-radius: 5px;
+            padding: 8px 10px 2px 10px;
+        }
+
 
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
-    <script src="src/js/loader.js"></script>
+    <script src="dist/angular-loader.min.js"></script>
     <script type="text/javascript">
 
-        angular.module('loader.demo', ['evtrs.loader']).directive('loaderDemo', function ($rootScope, $timeout, $compile, $document) {
-
-            return {
-                restrict: 'A',
-                controller: function ($scope, $element) {
-                    var animations = ['box', 'bounce'];
-                    $scope.animation = animations[0];
-
-                    var insertLoader = function () {
-                        var loader = angular.element('<div loader="{{animation}}"></div>');
-                        $element.append(loader);
-                        $compile(loader)($scope);
+        angular.module('loader.demo', ['eventures.loader'])
+                .config(function ($httpProvider) {
+                    $httpProvider.interceptors.push('demoInterceptor');
+                    $httpProvider.interceptors.push('loaderInterceptor');
+                })
+                .run(function (loaderProvider) {
+                    loaderProvider.setInterceptableURL('demo');
+                    loaderProvider.setAbeyance('500');
+                })
+                .factory('demoInterceptor', function ($timeout) {
+                    return {
+                        response: function (response) {
+                            return $timeout(function () {
+                                return response
+                            }, 3000);
+                        },
+                        responseError: function (response) {
+                            return $timeout(function () {
+                                return response
+                            }, 3000);
+                        }
                     };
+                })
+                .directive('loaderDemo', function ($rootScope, $timeout, $compile, $document, $http) {
 
-                    insertLoader();
+                    return {
+                        restrict: 'A',
+                        controller: function ($scope, $element) {
+                            var animations = ['box', 'bounce', 'cube', 'spinner', 'fold'];
+                            $scope.animation = animations[0];
 
-                    var throttle = function () {
-                        $document[0].querySelector('.message').classList.remove('show');
-                        $rootScope.$broadcast('HTTP_START');
+                            var insertLoader = function () {
+                                var loader = angular.element('<div loader="{{animation}}"></div>');
+                                $element.append(loader);
+                                $compile(loader)($scope);
+                            };
 
-                        $timeout(function () {
-                            $document[0].querySelector('.message').classList.add('show');
-                            return $rootScope.$broadcast('HTTP_STOP');
+                            insertLoader();
 
-                        }, 1000);
+                            var startRequest = function () {
+                                $document[0].querySelector('.message').classList.remove('show');
+                                $http.get('/demo');
+                            };
+                            startRequest();
 
+                            $rootScope.$on('LOADER_STOP', function () {
+                                $document[0].querySelector('.message').classList.add('show');
+                            })
+
+                            $scope.next = function () {
+                                $element.empty();
+                                var index = animations.indexOf($scope.animation);
+                                index = (index + 1) <= (animations.length - 1) ? ++index : 0;
+                                $scope.animation = animations[index];
+                                insertLoader();
+                                startRequest();
+                            };
+
+                            $scope.previous = function () {
+                                $element.empty();
+                                var index = animations.indexOf($scope.animation);
+                                index = (index - 1 < 0) ? animations.length - 1 : --index;
+                                $scope.animation = animations[index];
+                                insertLoader();
+                                startRequest();
+                            };
+                        }
                     };
-                    throttle();
-
-                    $scope.next = function () {
-                        $element.empty();
-                        var index = animations.indexOf($scope.animation);
-                        index = (index + 1) <= (animations.length - 1) ? ++index : 0;
-                        $scope.animation = animations[index];
-                        insertLoader();
-                        throttle();
-                    };
-
-                    $scope.previous = function () {
-                        $element.empty();
-                        var index = animations.indexOf($scope.animation);
-                        index = (index -1 < 0) ? animations.length - 1 : --index;
-                        $scope.animation = animations[index];
-                        insertLoader();
-                        throttle();
-                    };
-                }
-            };
-        });
+                })
 
 
     </script>
@@ -176,5 +208,7 @@
         </span>
     </div>
 </div>
+<span class="download"><a
+        href="https://github.com/eventures-io/angular-loader-directive/archive/master.zip">download</a></span>
 </body>
 </html>

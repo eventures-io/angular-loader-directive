@@ -1,4 +1,4 @@
-#CSS animated pre-loader Angular directive
+#CSS animated Angular loader directive
 
 ## Install
 
@@ -39,21 +39,7 @@ $ bower install angular-loader-directive --save
 + Inject the loader module into your app:
 
 ``` js
-angular.module('myApp', ['evtrs.loader']);
-```
-
-+ Create a 'LoaderConfig' constant that contains an API_ENDPOINT property with your backend url
-
-``` js
-myApp.constant('LoaderConfig', {API_ENDPOINT: 'htt://my.backend/api'});
-```
-
-+ Push the HTTP interceptor in your app's config
-
-``` js
-myApp.config(function($httpProvider){
-    $httpProvider.interceptors.push('HttpRequestInterceptor');
-}
+angular.module('myApp', ['eventures.loader']);
 ```
 
 + Add the loader directive to your template
@@ -62,9 +48,20 @@ myApp.config(function($httpProvider){
   <loader animation"myAnimation"></loader>
 ```
 
++ Override LoaderProvider's default interceptable url ('/api') and abeyance (200ms) as needed.
+``` js
+         myApp.run(function(loaderProvider) {
+                    loaderProvider.setInterceptableURL('my_backend_url');
+                    loaderProvider.setAbeyance(delay_before_animation_starts);
+         })
+```
+
 ###Available animations:
 + box
 + bounce
++ cube
++ spinner
++ fold
 
 
 ### [Demo](http://eventures-io.github.io/angular-loader-directive)
