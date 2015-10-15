@@ -1,7 +1,7 @@
 .loader, .loader-box, .sk-cube-grid, .sk-folding-cube {
   width: 6em;
   height: 6em;
-  background-color: #7cfc00;
+  background-color: #348342;
   margin: 100px auto; }
 
 .loader-box {
@@ -35,7 +35,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: #7cfc00;
+  background-color: #348342;
   opacity: 0.6;
   position: absolute;
   top: 0;
@@ -60,12 +60,12 @@
     transform: scale(1);
     -webkit-transform: scale(1); } }
 .sk-cube-grid {
-  background-color: white; }
+  background-color: #38cc70; }
 
 .sk-cube-grid .sk-cube {
   width: 33%;
   height: 33%;
-  background-color: #7cfc00;
+  background-color: #348342;
   float: left;
   -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
   animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; }
@@ -125,7 +125,7 @@
   width: 9em;
   height: 9em;
   text-align: center;
-  background-color: white;
+  background-color: #38cc70;
   margin: 50px auto;
   -webkit-animation: sk-rotate 2.0s infinite linear;
   animation: sk-rotate 2.0s infinite linear; }
@@ -136,7 +136,7 @@
   display: inline-block;
   position: absolute;
   top: 0;
-  background-color: #7cfc00;
+  background-color: #348342;
   border-radius: 100%;
   -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
   animation: sk-bounce 2.0s infinite ease-in-out; }
@@ -167,7 +167,7 @@
     transform: scale(1);
     -webkit-transform: scale(1); } }
 .sk-folding-cube {
-  background-color: white;
+  background-color: #38cc70;
   position: relative;
   -webkit-transform: rotateZ(45deg);
   transform: rotateZ(45deg); }
@@ -188,7 +188,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #7cfc00;
+  background-color: #348342;
   -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
   animation: sk-foldCubeAngle 2.4s infinite linear both;
   -webkit-transform-origin: 100% 100%;

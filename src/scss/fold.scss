@@ -1,6 +1,6 @@
 .sk-folding-cube {
   @extend .loader;
-  background-color: white;
+  background-color: $bg-color;
   position: relative;
   -webkit-transform: rotateZ(45deg);
   transform: rotateZ(45deg);
