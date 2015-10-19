@@ -45,7 +45,7 @@ angular.module('myApp', ['eventures.loader']);
 + Add the loader directive to your template
 
 ``` html
-  <loader animation"myAnimation"></loader>
+  <div loader="animation_name"></div>
 ```
 
 + Override LoaderProvider's default interceptable url ('/api') and abeyance (200ms) as needed.
